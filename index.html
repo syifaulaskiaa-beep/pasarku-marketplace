@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pasarku — Belanja Produk Asli UMKM Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-row">
+      <button class="icon-btn mobile-only" id="mobileNavToggle" aria-label="Menu"><span class="icon" data-icon="menu"></span></button>
+      <div class="logo"><span class="logo-dot">●</span>Pasarku</div>
+      <nav class="nav desktop-only">
+        <a href="#produk">Produk</a>
+        <a href="#mitra">Jadi Mitra</a>
+        <a href="#faq">Bantuan</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="openWishlistBtn" aria-label="Favorit">
+          <span class="icon" data-icon="heart"></span>
+          <span class="badge" id="wishlistCount" hidden>0</span>
+        </button>
+        <button class="icon-btn" id="openCartBtn" aria-label="Keranjang">
+          <span class="icon" data-icon="bag"></span>
+          <span class="badge" id="cartCount" hidden>0</span>
+        </button>
+      </div>
+    </div>
+    <nav class="nav mobile-nav" id="mobileNav" hidden>
+      <a href="#produk">Produk</a>
+      <a href="#mitra">Jadi Mitra</a>
+      <a href="#faq">Bantuan</a>
+    </nav>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero container">
+    <p class="eyebrow">Marketplace Produk UMKM Indonesia</p>
+    <h1 class="display">Belanja langsung dari tangan pelaku UMKM di seluruh Nusantara.</h1>
+    <p class="hero-desc">Dari kopi Gayo, batik Cirebon, sampai kerajinan bambu Tasikmalaya — setiap pembelian di Pasarku langsung mendukung usaha kecil lokal.</p>
+
+    <form class="hero-search" id="heroSearchForm">
+      <span class="icon" data-icon="search"></span>
+      <input type="text" id="searchInput" placeholder="Cari produk, misalnya kopi atau batik..." />
+      <button type="submit" class="btn btn-primary hero-search-btn">Cari</button>
+    </form>
+
+    <div class="quick-cats" id="quickCats"></div>
+
+    <a href="#mitra" class="hero-mitra-link">Punya usaha UMKM? Daftar jadi mitra <span class="icon" data-icon="arrow-right"></span></a>
+  </section>
+
+  <!-- ================= TRUST BADGES ================= -->
+  <section class="trust container">
+    <div class="trust-item"><span class="trust-icon-circle"><span class="icon" data-icon="badge-check"></span></span><span>100% produk asli UMKM</span></div>
+    <div class="trust-item"><span class="trust-icon-circle"><span class="icon" data-icon="truck"></span></span><span>Dikirim dari kota asal produsen</span></div>
+    <div class="trust-item"><span class="trust-icon-circle"><span class="icon" data-icon="shield"></span></span><span>Pembayaran aman & terverifikasi</span></div>
+    <div class="trust-item"><span class="trust-icon-circle"><span class="icon" data-icon="heart-hand"></span></span><span>Setiap beli, dukung ekonomi lokal</span></div>
+  </section>
+
+  <!-- ================= BEST SELLER ================= -->
+  <section class="container section-block">
+    <h2 class="section-title">Paling Laris</h2>
+    <div class="carousel" id="bestSellerList"></div>
+  </section>
+
+  <!-- ================= NEW ARRIVALS ================= -->
+  <section class="container section-block">
+    <h2 class="section-title">Produk Baru Gabung</h2>
+    <div class="carousel" id="newArrivalsList"></div>
+  </section>
+
+  <!-- ================= KOLEKSI / FILTER ================= -->
+  <section class="container section-block" id="produk">
+    <h2 class="section-title">Semua Produk UMKM</h2>
+
+    <div class="filters">
+      <div class="category-filters" id="categoryFilters"></div>
+
+      <p class="active-search" id="activeSearch" hidden>
+        <span class="active-search-text"></span>
+        <button type="button" id="clearSearchBtn">Hapus &times;</button>
+      </p>
+
+      <div class="filter-row">
+        <select id="priceSelect" class="select-box"></select>
+        <select id="sortSelect" class="select-box">
+          <option value="rekomendasi">Rekomendasi</option>
+          <option value="harga-rendah">Harga Terendah</option>
+          <option value="harga-tinggi">Harga Tertinggi</option>
+          <option value="rating">Rating Tertinggi</option>
+          <option value="terlaris">Paling Laris</option>
+        </select>
+
+        <span class="result-count" id="resultCount"></span>
+      </div>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+    <p class="empty-state" id="emptyState" hidden>Tidak ada produk yang cocok. Coba kata kunci atau filter lain.</p>
+
+    <div class="load-more-wrap">
+      <button class="btn btn-outline" id="loadMoreBtn" hidden>Muat Lebih Banyak</button>
+    </div>
+  </section>
+
+  <!-- ================= RECENTLY VIEWED ================= -->
+  <section class="container section-block" id="recentlyViewedSection" hidden>
+    <h2 class="section-title">Baru Anda Lihat</h2>
+    <div class="carousel" id="recentlyViewedList"></div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="container section-block">
+    <h2 class="section-title">Kata Pembeli</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Rasa keripiknya otentik banget, seneng juga tau uangnya langsung ke UMKM-nya."</p>
+        <p class="testimonial-name">Bayu Pratama</p>
+        <p class="testimonial-role">Pembeli Pasarku</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Kerajinan bambunya rapi banget, awet dipakai sehari-hari di rumah."</p>
+        <p class="testimonial-name">Sri Handayani</p>
+        <p class="testimonial-role">Pembeli Pasarku</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Batiknya asli tulisan tangan, motifnya detail dan pengirimannya cepat."</p>
+        <p class="testimonial-name">Nabila Putri</p>
+        <p class="testimonial-role">Pembeli Pasarku</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="container section-block" id="faq">
+    <h2 class="section-title">Pertanyaan Umum</h2>
+    <div class="faq-list" id="faqList"></div>
+  </section>
+
+  <!-- ================= DAFTAR MITRA UMKM ================= -->
+  <section class="mitra" id="mitra">
+    <div class="container mitra-row">
+      <div>
+        <p class="eyebrow eyebrow--light">Untuk Pelaku Usaha</p>
+        <h3 class="display display--light">Punya usaha UMKM? Jual produkmu di Pasarku.</h3>
+        <p class="mitra-desc">Gratis pendaftaran, tanpa biaya bulanan. Tim kami bantu proses kurasi dan verifikasi.</p>
+      </div>
+      <form class="mitra-form" id="mitraForm">
+        <input type="text" id="mitraNama" placeholder="Nama usaha" required />
+        <input type="text" id="mitraKontak" placeholder="Nomor WhatsApp / email" required />
+        <button type="submit" class="btn btn-gold">Daftar Sekarang</button>
+      </form>
+      <div class="mitra-success" id="mitraSuccess" hidden>
+        <p>✓ Terima kasih, tim kami akan segera menghubungi.</p>
+        <a href="#" target="_blank" class="btn btn-gold" id="waMitraLink" style="margin-top:10px">Konfirmasi via WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer container">
+    <div class="footer-brand">
+      <p class="display">Pasarku</p>
+      <p>Marketplace yang mempertemukan produk UMKM asli dari seluruh Indonesia dengan pembeli di mana saja.</p>
+    </div>
+    <div class="footer-col">
+      <p><span class="icon" data-icon="pin"></span> Jl. Sudirman Kav. 10, Jakarta Pusat</p>
+      <p><span class="icon" data-icon="phone"></span> +62 811 2233 4455</p>
+      <p><span class="icon" data-icon="mail"></span> halo@pasarku.id</p>
+    </div>
+    <div class="footer-col">
+      <p><span class="icon" data-icon="instagram"></span> @pasarku.id</p>
+      <p><span class="icon" data-icon="clock"></span> Layanan pelanggan 08.00–21.00</p>
+    </div>
+  </footer>
+  <p class="copyright">© 2026 Pasarku. Dibuat untuk mendukung UMKM Indonesia bertumbuh.</p>
+
+  <!-- ================= WHATSAPP BUTTON ================= -->
+  <button class="whatsapp-btn" id="whatsappBtn" aria-label="Chat WhatsApp">
+    <span class="icon" data-icon="whatsapp"></span>
+  </button>
+
+  <!-- ================= PRODUCT MODAL ================= -->
+  <div class="overlay" id="productOverlay" hidden></div>
+  <div class="product-modal" id="productModal" hidden>
+    <div class="product-modal-inner" id="productModalContent"></div>
+  </div>
+
+  <!-- ================= WISHLIST DRAWER ================= -->
+  <div class="overlay" id="wishlistOverlay" hidden></div>
+  <aside class="drawer" id="wishlistDrawer">
+    <div class="drawer-head">
+      <p class="display">Favorit</p>
+      <button class="icon-btn" id="closeWishlistBtn"><span class="icon" data-icon="x"></span></button>
+    </div>
+    <div class="drawer-body" id="wishlistList"></div>
+  </aside>
+
+  <!-- ================= CART DRAWER ================= -->
+  <div class="overlay" id="cartOverlay" hidden></div>
+  <aside class="drawer" id="cartDrawer">
+    <div class="drawer-head">
+      <p class="display">Keranjang (<span id="cartDrawerCount">0</span>)</p>
+      <button class="icon-btn" id="closeCartBtn"><span class="icon" data-icon="x"></span></button>
+    </div>
+    <div class="drawer-body" id="cartItems"></div>
+    <div class="drawer-footer" id="cartSummary" hidden></div>
+  </aside>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div class="overlay" id="checkoutOverlay" hidden></div>
+  <div class="checkout-modal" id="checkoutModal" hidden>
+    <div class="checkout-inner">
+      <button class="icon-btn checkout-close" id="closeCheckoutBtn"><span class="icon" data-icon="x"></span></button>
+
+      <div id="checkoutForm">
+        <h2 class="display">Detail Pengiriman</h2>
+        <form id="orderForm">
+          <input required placeholder="Nama lengkap" id="ckNama" />
+          <input required placeholder="Nomor telepon" id="ckTelepon" />
+          <input required placeholder="Alamat lengkap" id="ckAlamat" />
+          <input required placeholder="Kota" id="ckKota" />
+          <textarea placeholder="Catatan untuk penjual (opsional)" id="ckCatatan" rows="2"></textarea>
+
+          <p class="form-label">Metode Pengiriman</p>
+          <div id="shippingOptions"></div>
+
+          <p class="form-label">Metode Pembayaran</p>
+          <div id="paymentOptions"></div>
+
+          <div class="checkout-total">
+            <span>Total Pembayaran</span>
+            <span id="checkoutTotal">Rp0</span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Buat Pesanan</button>
+        </form>
+      </div>
+
+      <div id="checkoutSuccess" hidden>
+        <div class="success-icon"><span class="icon" data-icon="check"></span></div>
+        <h2 class="display" style="text-align:center">Pesanan Diterima</h2>
+        <p style="text-align:center" class="muted">Nomor pesanan Anda</p>
+        <p style="text-align:center" class="order-number" id="orderNumber"></p>
+        <p style="text-align:center" class="muted">Klik tombol di bawah untuk mengirim detail pesanan ke WhatsApp toko agar segera diproses.</p>
+        <a href="#" target="_blank" class="btn btn-outline btn-block" id="waConfirmLink">Kirim Pesanan via WhatsApp</a>
+        <button class="btn btn-primary btn-block" id="finishOrderBtn">Selesai</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOASTS ================= -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
